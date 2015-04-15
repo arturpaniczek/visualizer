@@ -1,0 +1,462 @@
+// colour used throughout the application
+$orange: #ba3818;
+$dark-gray: #1a1a1a;
+$darker-gray: #323232;
+$medium-gray: #828282;
+$light-gray: #e2e2e2;
+
+// audio player dimensions 
+$player-width: 440px;
+$player-height: 41px;
+
+// opacity of all the panels
+$panel-opacity: 0.8;
+
+// default border for the application panels
+$default-border: 1px solid $darker-gray;
+
+// enable border-box sizing for all the elements on the page
+html {
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    overflow: hidden;
+}
+
+// main application container
+#visualizer {
+    
+    // visualizer container gets full height 
+    height: 100vh;
+
+    // styles for when no video is selected
+    &.no-video {
+
+        background: $dark-gray;
+        
+        #video-picker .no-choice {
+            color: $orange;
+        }
+
+        #video-container {
+            display: none;
+        }
+    }
+
+    // styles for when no visualization is selected
+    &.no-fx {
+
+        #fx-picker .no-choice {
+            color: $orange;
+        }
+
+        #fx-container, #fx-customizer {
+            display: none;
+        }
+    }
+}
+
+// applies to all the panels in the app
+.visualizer-panel {
+
+    opacity: $panel-opacity;
+    transition: opacity .25s ease-in-out;
+
+    &:hover {
+        opacity: 1;
+    }
+}
+
+// panel inner container styles
+.picker-container {
+    display: inline-block;
+    padding: 10px;
+    background: $dark-gray; 
+}
+
+// panel handle styles
+.handle {  
+    text-align: center;
+
+    .handle-label {
+        cursor: pointer;
+        color: #fff;
+        font-size: .8em;
+        background: $dark-gray;
+        display: inline-block;
+        padding: 2px 10px 2px 15px;
+        text-transform: uppercase;
+        border-left: $default-border;
+        border-right: $default-border;
+
+        &.top-label, &.left-label {
+            border-radius: 4px 4px 0 0;
+            border-top: $default-border;
+        }
+
+        &.bottom-label {
+            border-radius: 0 0 4px 4px;
+            border-bottom: $default-border;
+        }    
+    }
+
+    .up-arrow, .down-arrow {
+        color: $darker-gray;
+    }
+}
+
+// messengar container
+#messenger {
+    position: fixed;
+    top: 0; 
+    bottom: 0; 
+    left: 0; 
+    right: 0; 
+    background: rgba(30, 30, 30, 0.9);
+    color: $light-gray;
+    line-height: 23px;
+
+    // close button
+    .messenger-close {
+        position: absolute;
+        right: 0;
+        top: 0;
+
+        span {
+            font-size: 30px;
+            padding: 15px;
+            cursor: pointer;
+        }
+    }
+
+    // contents
+    .messenger-contents {
+        position: absolute;
+        left: 5%;
+        top: 10%;
+        margin: 0 auto;    
+    }
+
+    // forward button
+    .messenger-forward {
+        float: left;
+        margin: 30px 20px;
+
+        span {
+            font-size: 25px;
+            cursor: pointer;
+        }
+    }
+
+    .messenger-message {
+        width: 300px;
+        float: left;
+    }
+
+    .messenger-message-header {
+        font-size: 2em;
+        margin-bottom: 20px;
+    }
+
+    .glyphicon-warning-sign {
+        color: $orange;
+    }
+}
+
+// background video container
+#video-container {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -1;
+    background-size: cover;
+    background: url(../video/clouds.png) no-repeat;
+}
+
+// video picker panel styles
+#video-picker {
+    position: absolute;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    text-align: center;
+
+    .picker-container {
+        margin-bottom: -6px;        
+        border-bottom: $default-border;
+        border-left: $default-border;
+        border-right: $default-border;   
+    }
+}
+
+// fx picker and customizer panels styles
+#fx-picker, #fx-customizer {
+    position: absolute;
+    right: 0;
+
+    .picker-container {
+        border-bottom: $default-border;
+        border-left: $default-border;
+        border-top: $default-border;
+    }
+
+    .handle {
+        transform: rotate(-90deg);
+        transform-origin: right bottom;
+        float: left;
+    }
+
+    .handle-label {
+        padding: 2px 10px;
+    }
+}
+
+#fx-picker {
+    top: 50%;
+}
+
+#fx-customizer {
+    bottom: 50%;  
+
+    .picker-container {
+        padding: 10px 20px;
+    }
+
+    .left-section, .right-section {
+        width: 50%;
+    }
+
+    .left-section {
+        float: left;
+        padding-right: 20px;
+    }
+
+    .right-section {
+        float: right;
+    }
+
+    button {
+        font-size: .8em;
+        text-transform: uppercase;
+        border-radius: 4px;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        margin-bottom: 20px;
+        margin-right: 20px;
+    }
+}
+
+// styles for setting fields in the customizer panel
+.fx-option {
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+    border-bottom: 1px dotted $darker-gray;
+
+    &:last-child {
+        margin-bottom: 0px;
+        border-bottom: none;
+        padding-bottom: 10px;
+    }
+
+    &.type-color {
+        padding-bottom: 0px;
+    }
+
+    label {
+        color: #fff;
+        font-size: .7em;
+        font-weight: normal;
+        background: $dark-gray;
+        text-transform: uppercase;
+    }
+
+    .range-labels {
+        font-size: .7em;
+        color: $medium-gray;
+
+        .right-label {
+            float: right;
+        }
+    }
+
+    // color <input> styles
+    [type=color] {
+        margin-left: 10px;
+        padding: 0;
+        border: none;
+        background: none;
+        width: 20px;
+        float: right;
+        margin-top: -1px;
+    }
+
+    // <input> checkbox styles
+    [type=checkbox], select {
+        margin-left: 10px;
+    }
+}
+
+// styles for video and visualization thumbnails in their respective picker panels
+.fx-image, .video-image {
+    width: 42px;
+    height: 42px;
+    background-repeat: no-repeat;
+    background-position: center; 
+    background-size: auto 100%;
+    opacity: 0.8;
+    transition: opacity .25s ease-in-out;
+    cursor: pointer;
+
+    &.active-video, &.active-fx {
+        border: 2px solid $orange;
+    }
+
+    &.no-choice {
+        font-size: 2em;
+        line-height: 42px;
+    }
+
+    &:hover {
+        opacity: 1;
+    }
+}
+
+.video-image {
+    float: left;
+    margin-right: 10px;
+    
+    &:last-child {
+        margin-right: 0px;
+    }
+}
+
+.fx-image {
+    margin-bottom: 10px;
+
+    &:last-child {
+        margin-bottom: 0px;
+    }
+
+     &.no-choice {
+        text-align: center;
+    }
+}
+
+// audio player panel
+#audio-player {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+
+
+    .handle .glyphicon {
+        margin-left: 5px;
+    }
+}
+
+#audio-player, #player-container {
+    width: $player-width;    
+    margin: 0 auto;
+
+}
+
+#player-container, #audio-player .handle span {
+    box-shadow: -2px -2px 5px 0px rgba(0,0,0,0.2);
+}
+
+#player-container {
+    float: left;
+    width: 400px;
+    height: $player-height;
+    background: $dark-gray;
+    border-left: $default-border;
+    border-right: $default-border;
+    border-top: $default-border;
+}
+
+#player-controls {
+    float: left;
+    width: 40px;
+}
+
+#player-play, #player-pause, #player-loading {
+    color: $orange;
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    text-align: center;
+    line-height: 40px;
+    border-right: 1px solid $darker-gray;
+    cursor: pointer;
+}
+
+#player-loading {
+    display: none;
+
+    span {    
+        -webkit-animation: revolve .7s infinite linear;
+        animation: revolve .7s infinite linear;
+    }
+}
+
+// animation for the track loading icon
+@-webkit-keyframes revolve {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes revolve {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+#player-progress {
+    background-color: $medium-gray;
+    width: 318px;
+    margin: 14px 20px;
+    float: left;
+    cursor: ew-resize;
+}
+
+#player-play-bar {
+    height: 12px;
+    background-color: $orange;
+
+}
+
+#microphone-toggle {
+    float: right;
+    width: 40px;
+    height: 41px;
+    position: relative;
+    border-top: $default-border;
+    border-right: $default-border;
+    cursor: pointer;
+    background: $dark-gray;
+
+    div {
+        background: url('../img/icons/microphone.png') no-repeat;
+        width: 17px;
+        height: 24px;
+        position: absolute;
+        margin: auto;
+        top: 0; left: 0; bottom: 0; right: 0;
+    }    
+
+    &.enabled div {
+        background-position: -17px 0px;
+    }
+}
